@@ -13,7 +13,7 @@ from group import Group
 
 
 @allure.epic("Group")
-class Test_add_group():
+class TestAddGroup():
   data_test = [
       ("test_name11","test_header","test_footer"),
       ("","","")
