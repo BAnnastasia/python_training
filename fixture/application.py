@@ -23,5 +23,5 @@ class Application:
 
 
     def open_home_page(self):
-        with allure.step("Open home page"):
+        with allure.step("Open start page"):
             self.driver.get("http://mac-minik.local/addressbook/index.php")
