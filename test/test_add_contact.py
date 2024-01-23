@@ -21,7 +21,7 @@ class TestAddContact():
   @allure.description("This test successfully creates a contact")
   def test_add_contact(self,app, firstname,lastname,address,email, mobile, byear, bmonth, bday, homepage):
     app.session.login(username="admin", password="secret")
-    app.create_contact(Contact(firstname,lastname,address,email, mobile,byear,bmonth,bday,homepage))
+    app.contact.create(Contact(firstname, lastname, address, email, mobile, byear, bmonth, bday, homepage))
     app.session.logout()
 
 
