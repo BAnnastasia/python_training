@@ -1,7 +1,7 @@
 import pytest
-from conact import Contact
+from model.conact import Contact
 import allure
-from application import Application
+from fixture.application import Application
 
 
 @pytest.fixture
