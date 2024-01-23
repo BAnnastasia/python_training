@@ -3,14 +3,7 @@ from model.conact import Contact
 import allure
 from fixture.application import Application
 
-
-@pytest.fixture
-def app(request):
-  fixture = Application()
-  request.addfinalizer(fixture.destroy)
-  return fixture
-
-@allure.epic("Contact")
+@allure.epic("Contact_create")
 class TestAddContact():
   data_test = [
     ("Firstname203", "Lastname", "Minsk Kalinina 18-304", "email@test.by", "+375440000000", "1994", "January","2","https://www.google.com/"),

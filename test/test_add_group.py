@@ -1,22 +1,14 @@
 import pytest
 import allure
 from model.group import Group
-from fixture.application import Application
 
 
-@pytest.fixture
-def app(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
-
-
-@allure.epic("Group")
+@allure.epic("Group_create")
 class TestAddGroup():
   data_test = [
       ("test_name11","test_header","test_footer"),
       ("","",""),
-      ("Фикстура ", "тест", "test")
+      ("test 3 ", "тест", "test")
   ]
 
 

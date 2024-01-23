@@ -23,6 +23,15 @@ class GroupHelper:
             driver.find_element(By.NAME, "submit").click()
             self.return_to_groups_page()
 
+    def delete_first_group(self):
+        driver = self.app.driver
+        self.open_groups_page()
+        with allure.step("Select a group"):
+            driver.find_element(By.NAME,"selected[]").click()
+        with allure.step("Delete a group"):
+            driver.find_element(By.NAME,"delete").click()
+        self.return_to_groups_page()
+
 
     def open_groups_page(self):
         driver = self.app.driver
