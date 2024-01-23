@@ -1,12 +1,12 @@
 import pytest
-from model.conact import Contact
+from model.contact import Contact
 import allure
 from fixture.application import Application
 
 @allure.epic("Contact_create")
 class TestAddContact():
   data_test = [
-    ("Firstname203", "Lastname", "Minsk Kalinina 18-304", "email@test.by", "+375440000000", "1994", "January","2","https://www.google.com/"),
+    ("Firstname", "Lastname", "Minsk Kalinina 18-304", "email@test.by", "+375440000000", "1994", "January","2","https://www.google.com/"),
     ("","","","","","","","-","")
   ]
 

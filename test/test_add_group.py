@@ -6,9 +6,9 @@ from model.group import Group
 @allure.epic("Group_create")
 class TestAddGroup():
   data_test = [
-      ("test_name11","test_header","test_footer"),
+      ("Name_group","header_group","footer_group"),
       ("","",""),
-      ("test 3 ", "тест", "test")
+      ("Friends ", "list", "best")
   ]
 
 
