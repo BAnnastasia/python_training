@@ -1,19 +1,18 @@
 from selenium import webdriver
 import allure
 from selenium.webdriver.common.by import By
+from fixture.session import SessionHelper
 
 
 class Application:
     def __init__(self):
         self.driver = webdriver.Chrome()
         self.vars = {}
+        self.session = SessionHelper(self)
 
     def destroy(self):
         self.driver.quit()
 
-    def logout(self):
-        with allure.step("Logout"):
-            self.driver.find_element(By.LINK_TEXT, "Logout").click()
 
     def return_to_groups_page(self):
         with allure.step("Return group page"):
@@ -74,15 +73,6 @@ class Application:
             self.driver.find_element(By.NAME, "homepage").send_keys(contact.homepage)
         with allure.step("Submit contact creation"):
             self.driver.find_element(By.XPATH, "(//input[@name=\'submit\'])[2]").click()
-
-    def login(self, username, password):
-        self.open_home_page()
-        with allure.step("Login"):
-            self.driver.find_element(By.NAME, "user").click()
-            self.driver.find_element(By.NAME, "user").send_keys(username)
-            self.driver.find_element(By.NAME, "pass").click()
-            self.driver.find_element(By.NAME, "pass").send_keys(password)
-            self.driver.find_element(By.XPATH, "//input[@value=\'Login\']").click()
 
     def open_home_page(self):
         with allure.step("Open home page"):
