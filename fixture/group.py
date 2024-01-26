@@ -13,15 +13,14 @@ class GroupHelper:
         with allure.step("Init group creation"):
             driver.find_element(By.NAME, "new").click()
         with allure.step("Fill group form"):
-            driver.find_element(By.NAME, "group_name").click()
-            driver.find_element(By.NAME, "group_name").send_keys(group.name)
-            driver.find_element(By.NAME, "group_header").click()
-            driver.find_element(By.NAME, "group_header").send_keys(group.header)
-            driver.find_element(By.NAME, "group_footer").click()
-            driver.find_element(By.NAME, "group_footer").send_keys(group.footer)
+            self.app.apply_value_str_by_name(driver, "group_name", group.name)
+            self.app.apply_value_str_by_name(driver, "group_header", group.header)
+            self.app.apply_value_str_by_name(driver, "group_footer", group.footer)
         with allure.step("Submit group creation"):
             driver.find_element(By.NAME, "submit").click()
             self.return_to_groups_page()
+
+
 
     def edit_first_group(self, group):
         driver = self.app.driver
@@ -30,13 +29,9 @@ class GroupHelper:
             driver.find_element(By.NAME, "selected[]").click()
         with allure.step("Edit a group"):
             driver.find_element(By.NAME, "edit").click()
-            driver.find_element(By.NAME, "group_name").clear()
-            driver.find_element(By.NAME, "group_name").click()
-            driver.find_element(By.NAME, "group_name").send_keys(group.name)
-            driver.find_element(By.NAME, "group_header").click()
-            driver.find_element(By.NAME, "group_header").send_keys(group.header)
-            driver.find_element(By.NAME, "group_footer").clear()
-            driver.find_element(By.NAME, "group_footer").send_keys(group.footer)
+            self.app.apply_value_str_by_name(driver, "group_name", group.name, True)
+            self.app.apply_value_str_by_name(driver, "group_header", group.header, True)
+            self.app.apply_value_str_by_name(driver, "group_footer", group.footer, True)
         with allure.step("Update group"):
             driver.find_element(By.NAME, "update").click()
             self.return_to_groups_page()

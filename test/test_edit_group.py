@@ -3,7 +3,8 @@ import pytest
 from model.group import Group
 
 data_test = [
-      ("Edit_name","edit_header","")
+    ("Edit_name","edit_header",""),
+    #("","","")
   ]
 @allure.epic("Group_edit")
 @allure.description("This test successfully edit a group")
