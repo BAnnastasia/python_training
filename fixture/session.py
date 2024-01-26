@@ -27,8 +27,7 @@ class SessionHelper:
     def is_logged_in(self):
         driver = self.app.driver
         return len(driver.find_elements(By.LINK_TEXT, "Logout")) > 0
-        #return len(driver.find_element_by_link_text("Logout")) > 0
-    #self.driver.find_element(By.LINK_TEXT, "home page").click()
+
 
     def is_logged_as(self, username):
         driver = self.app.driver
