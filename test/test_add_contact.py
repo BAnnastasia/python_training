@@ -22,7 +22,6 @@ class TestAddContact():
                  email2, email3,
                  aday, amonth, ayear,
                  new_group, address2, phone2, notes):
-    app.session.login(username="admin", password="secret")
     app.contact.create(Contact(firstname, lastname, address, mobile, email, byear, bmonth, bday, homepage,
                  middlename, nickname, photo, delete,
                  company, title,
@@ -30,7 +29,7 @@ class TestAddContact():
                  email2, email3,
                  aday, amonth, ayear,
                  new_group, address2, phone2, notes))
-    app.session.logout()
+
 
 
 

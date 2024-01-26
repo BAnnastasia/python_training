@@ -16,7 +16,4 @@ class TestAddGroup():
   @pytest.mark.parametrize('name,header,footer,', data_test)
   @allure.description("This test successfully creates a group")
   def test_add_group(self, app, name, header, footer):
-    app.session.login(username="admin", password="secret")
     app.group.create(Group(name, header, footer))
-    app.session.logout()
-

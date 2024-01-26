@@ -87,6 +87,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         driver = self.app.driver
+        self.app.open_home_page()
         with allure.step("Select a contact"):
             driver.find_element(By.NAME, "selected[]").click()
         with allure.step("Delete a contact"):
