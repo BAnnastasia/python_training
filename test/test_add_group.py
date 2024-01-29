@@ -9,7 +9,7 @@ class TestAddGroup():
       ("Name_group","header_group","footer_group"),
       ("","",""),
       #("Friends ", "list", "best"),
-      #("Test", None, None)
+      ("Test", None, None)
   ]
 
 

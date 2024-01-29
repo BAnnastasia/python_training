@@ -7,20 +7,22 @@ class GroupHelper:
     def __init__(self, app):
         self.app = app
 
+    def fild_group_form(self,group):
+        driver = self.app.driver
+        with allure.step("Fill group form"):
+            self.app.apply_value_str_by_name(driver, "group_name", group.name)
+            self.app.apply_value_str_by_name(driver, "group_header", group.header)
+            self.app.apply_value_str_by_name(driver, "group_footer", group.footer)
+
     def create(self, group):
         driver = self.app.driver
         self.open_groups_page()
         with allure.step("Init group creation"):
             driver.find_element(By.NAME, "new").click()
-        with allure.step("Fill group form"):
-            self.app.apply_value_str_by_name(driver, "group_name", group.name)
-            self.app.apply_value_str_by_name(driver, "group_header", group.header)
-            self.app.apply_value_str_by_name(driver, "group_footer", group.footer)
+        self.fild_group_form(group)
         with allure.step("Submit group creation"):
             driver.find_element(By.NAME, "submit").click()
             self.return_to_groups_page()
-
-
 
     def edit_first_group(self, group):
         driver = self.app.driver
@@ -29,9 +31,7 @@ class GroupHelper:
             driver.find_element(By.NAME, "selected[]").click()
         with allure.step("Edit a group"):
             driver.find_element(By.NAME, "edit").click()
-            self.app.apply_value_str_by_name(driver, "group_name", group.name, True)
-            self.app.apply_value_str_by_name(driver, "group_header", group.header, True)
-            self.app.apply_value_str_by_name(driver, "group_footer", group.footer, True)
+            self.fild_group_form(group)
         with allure.step("Update group"):
             driver.find_element(By.NAME, "update").click()
             self.return_to_groups_page()

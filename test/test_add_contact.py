@@ -8,7 +8,7 @@ class TestAddContact():
   data_test = [
     ("Firstname33333", "Lastname", "Minsk Kalinina 18-304", "email@test.by", "+375440000000", "1994", "January","-","https://www.google.com/",
      None, None, None, None, None, None,None, None, None, None, None, None, None, None, None, None,None, None,),
-    ( None, None, None, None, None, None, None, None, None,
+    ( "", None, None, None, None, None, None, None, None,
       None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None,)
 
   ]

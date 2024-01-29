@@ -45,7 +45,7 @@ class Application:
         element.send_keys(value)
 
     @staticmethod
-    def apply_value_dropdown_by_name(driver, dropdown_name, value, clear=False):
+    def apply_value_dropdown_by_name(driver, dropdown_name, value):
         if value is None:
             return
         driver.find_element(By.NAME, dropdown_name).click()
