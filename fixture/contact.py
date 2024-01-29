@@ -8,7 +8,7 @@ class ContactHelper:
         with allure.step("Open add new contact page"):
             driver.find_element(By.LINK_TEXT, "add new").click()
 
-    def fild_group_form(self, contact, clear=False):
+    def fild_contact_form(self, contact, clear=False):
         driver = self.app.driver
         with allure.step("Fill contact form"):
             self.app.apply_value_str_by_name(driver, "firstname", contact.firstname, clear)
@@ -44,7 +44,7 @@ class ContactHelper:
     def create(self, contact):
         driver = self.app.driver
         self.open_new_contact_page()
-        self.fild_group_form(contact)
+        self.fild_contact_form(contact)
         with allure.step("Submit contact creation"):
             driver.find_element(By.XPATH, "(//input[@name=\'submit\'])[2]").click()
 
@@ -55,7 +55,7 @@ class ContactHelper:
             driver.find_element(By.NAME, "selected[]").click()
         with allure.step("Edit contact"):
             driver.find_element(By.XPATH, "//img[@alt='Edit']").click()
-            self.fild_group_form(contact, True)
+            self.fild_contact_form(contact, True)
         with allure.step("Update contact"):
             driver.find_element(By.NAME, "update").click()
 
