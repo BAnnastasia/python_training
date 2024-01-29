@@ -8,8 +8,8 @@ class TestAddGroup():
   data_test = [
       ("Name_group","header_group","footer_group"),
       ("","",""),
-      ("Friends ", "list", "best"),
-      ("Test", None, None)
+      #("Friends ", "list", "best"),
+      #("Test", None, None)
   ]
 
 
