@@ -5,8 +5,9 @@ class ContactHelper:
         self.app = app
     def open_new_contact_page(self):
         driver = self.app.driver
-        with allure.step("Open add new contact page"):
-            driver.find_element(By.LINK_TEXT, "add new").click()
+        if not (driver.current_url.endswith("/addressbook/edit.php") and len(driver.find_elements(By.NAME, "submit")) > 0):
+            with allure.step("Open add new contact page"):
+                driver.find_element(By.LINK_TEXT, "add new").click()
 
     def fild_contact_form(self, contact, clear=False):
         driver = self.app.driver

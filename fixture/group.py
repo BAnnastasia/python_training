@@ -48,13 +48,15 @@ class GroupHelper:
 
     def open_groups_page(self):
         driver = self.app.driver
-        with allure.step("Open groups page"):
-            driver.find_element(By.LINK_TEXT, "groups").click()
+        if not (driver.current_url.endswith("/group.php") and len(driver.find_elements(By.NAME,"new")) > 0):
+            with allure.step("Open groups page"):
+                driver.find_element(By.LINK_TEXT, "groups").click()
 
     def return_to_groups_page(self):
         driver = self.app.driver
-        with allure.step("Return group page"):
-            driver.find_element(By.LINK_TEXT, "group page").click()
+        if not (driver.current_url.endswith("/group.php") and len(driver.find_elements(By.NAME, "new")) > 0):
+            with allure.step("Return group page"):
+                driver.find_element(By.LINK_TEXT, "group page").click()
 
     def count(self):
         driver = self.app.driver

@@ -9,7 +9,6 @@ from fixture.contact import ContactHelper
 class Application:
     def __init__(self):
         self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait(5)
         self.vars = {}
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
@@ -25,14 +24,12 @@ class Application:
     def destroy(self):
         self.driver.quit()
 
-    def return_home_page(self):
-        with allure.step("Return home page"):
-            self.driver.find_element(By.LINK_TEXT, "home page").click()
-
 
     def open_home_page(self):
-        with allure.step("Open start page"):
-            self.driver.get("http://mac-minik.local/addressbook/index.php")
+        driver = self.driver
+        if not (driver.current_url.endswith("/index.php") and len(driver.find_elements(By.XPATH, "//input[@value='Send e-Mail']")) > 0):
+            with allure.step("Open start page"):
+                self.driver.get("http://mac-minik.local/addressbook/index.php")
 
     @staticmethod
     def apply_value_str_by_name(driver, field_name, value, clear=False):
