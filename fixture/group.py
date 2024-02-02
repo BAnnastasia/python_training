@@ -70,7 +70,6 @@ class GroupHelper:
 
         for element in driver.find_elements(By.CSS_SELECTOR,"span.group"):
             name = element.text
-
             id = element.find_element(By.NAME,"selected[]").get_attribute("value")
             groups.append(Group(name=name, id=id))
         return groups

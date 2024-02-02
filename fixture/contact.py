@@ -1,5 +1,6 @@
 import allure
 from selenium.webdriver.common.by import By
+from model.contact import Contact
 class ContactHelper:
     def __init__(self,app):
         self.app = app
@@ -72,3 +73,16 @@ class ContactHelper:
             driver.find_element(By.NAME, "selected[]").click()
         with allure.step("Delete a contact"):
             driver.find_element(By.XPATH,"//input[@value='Delete']").click()
+
+
+    def get_contact_list(self):
+        driver = self.app.driver
+        self.app.open_home_page()
+        contact = []
+
+        for element in driver.find_elements(By.CSS_SELECTOR,"tr[name=entry]"):
+
+            text = element.text
+            id = element.find_elements(By.CSS_SELECTOR, "td")[0].find_element(By.TAG_NAME, "input").get_attribute("id")
+            contact.append(Contact(text = text, id=id))
+        return contact

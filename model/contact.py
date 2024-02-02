@@ -9,7 +9,7 @@ class Contact:
                  work=None, fax=None,
                  email2=None, email3=None,
                  aday=None, amonth=None, ayear=None,
-                 new_group=None, address2=None, phone2=None, notes=None
+                 new_group=None, address2=None, phone2=None, notes=None, id=None, text=None
                  ):
         self.firstname = firstname
         self.lastname = lastname
@@ -39,6 +39,11 @@ class Contact:
         self.address2 = address2
         self.phone2 = phone2
         self.notes = notes
+        self.id = id
+        self.text = text
+
+    def __repr__(self):
+        return "Group ID:""%s" % (self.id) + " " + "name:""%s" % (self.alt)
 
 
 
