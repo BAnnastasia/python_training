@@ -8,12 +8,12 @@ class GroupHelper:
     def __init__(self, app):
         self.app = app
 
-    def fild_group_form(self,group):
+    def fild_group_form(self,group,clear=False):
         driver = self.app.driver
         with allure.step("Fill group form"):
-            self.app.apply_value_str_by_name(driver, "group_name", group.name)
-            self.app.apply_value_str_by_name(driver, "group_header", group.header)
-            self.app.apply_value_str_by_name(driver, "group_footer", group.footer)
+            self.app.apply_value_str_by_name(driver, "group_name", group.name, clear)
+            self.app.apply_value_str_by_name(driver, "group_header", group.header, clear)
+            self.app.apply_value_str_by_name(driver, "group_footer", group.footer, clear)
 
     def create(self, group):
         driver = self.app.driver
@@ -32,7 +32,7 @@ class GroupHelper:
             driver.find_element(By.NAME, "selected[]").click()
         with allure.step("Edit a group"):
             driver.find_element(By.NAME, "edit").click()
-            self.fild_group_form(group)
+            self.fild_group_form(group, True)
         with allure.step("Update group"):
             driver.find_element(By.NAME, "update").click()
             self.return_to_groups_page()
