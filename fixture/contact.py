@@ -82,7 +82,8 @@ class ContactHelper:
 
         for element in driver.find_elements(By.CSS_SELECTOR,"tr[name=entry]"):
 
-            text = element.text
             id = element.find_elements(By.CSS_SELECTOR, "td")[0].find_element(By.TAG_NAME, "input").get_attribute("id")
-            contact.append(Contact(text = text, id=id))
+            lastname = element.find_elements(By.CSS_SELECTOR, "td")[1].text
+            firstname = element.find_elements(By.CSS_SELECTOR, "td")[2].text
+            contact.append(Contact(id=id, lastname=lastname, firstname=firstname))
         return contact
