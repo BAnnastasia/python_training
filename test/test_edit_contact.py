@@ -25,6 +25,7 @@ def test_edit_contact(app,firstname, lastname, address, mobile, email, byear, bm
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname="Test_delete"))
     old_contact = app.contact.get_contact_list()
+    index = randrange(len(old_contact))
     contact = Contact(firstname, lastname, address, mobile, email, byear, bmonth, bday, homepage,
                  middlename, nickname, photo, delete,
                  company, title,
@@ -32,10 +33,10 @@ def test_edit_contact(app,firstname, lastname, address, mobile, email, byear, bm
                  email2, email3,
                  aday, amonth, ayear,
                  new_group, address2, phone2, notes)
-    contact.id = old_contact[0].id
-    app.contact.edit_first_contact(contact)
+    contact.id = old_contact[index].id
+    app.contact.edit_contact_by_index(index, contact)
     assert len(old_contact) == app.contact.count()
     new_contact = app.contact.get_contact_list()
-    old_contact[0] = contact
+    old_contact[index] = contact
     assert sorted(old_contact, key=Contact.id_or_max) == sorted(new_contact, key=Contact.id_or_max)
 

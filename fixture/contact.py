@@ -51,13 +51,14 @@ class ContactHelper:
             driver.find_element(By.XPATH, "(//input[@name=\'submit\'])[2]").click()
             self.contact_cache = None
 
-    def edit_first_contact(self,contact):
+    def edit_first_contact(self):
+        self.edit_contact_by_index(0)
+
+    def edit_contact_by_index(self, index,contact):
         driver = self.app.driver
         self.app.open_home_page()
-        with allure.step("Select a contact"):
-            driver.find_element(By.NAME, "selected[]").click()
-        with allure.step("Edit contact"):
-            driver.find_element(By.XPATH, "//img[@alt='Edit']").click()
+        with allure.step(f"Edit contact {index}"):
+            driver.find_elements(By.XPATH, "//img[@alt='Edit']")[index].click()
             self.fild_contact_form(contact, True)
         with allure.step("Update contact"):
             driver.find_element(By.NAME, "update").click()
@@ -68,15 +69,26 @@ class ContactHelper:
         self.app.open_home_page()
         return len(driver.find_elements(By.NAME,"selected[]"))
 
+    def select_first_contact(self):
+        index = 0
+        with allure.step(f"Select a contact by index {index}"):
+            self.select_contact_by_index(index)
+
+    def select_contact_by_index(self, index):
+        driver = self.app.driver
+        with allure.step("Select a contact by index"):
+             driver.find_elements(By.NAME, "selected[]")[index].click()
+
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         driver = self.app.driver
         self.app.open_home_page()
-        with allure.step("Select a contact"):
-            driver.find_element(By.NAME, "selected[]").click()
+        self.select_contact_by_index(index)
         with allure.step("Delete a contact"):
             driver.find_element(By.XPATH,"//input[@value='Delete']").click()
             self.contact_cache = None
-
     contact_cache = None
     def get_contact_list(self):
         driver = self.app.driver
