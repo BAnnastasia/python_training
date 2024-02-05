@@ -26,11 +26,13 @@ class GroupHelper:
             self.return_to_groups_page()
             self.group_cache = None
 
-    def edit_first_group(self, group):
+    def edit_first_group(self):
+        self.edit_group_by_index(0)
+
+    def edit_group_by_index(self, index, group):
         driver = self.app.driver
         self.open_groups_page()
-        with allure.step("Select a group"):
-            driver.find_element(By.NAME, "selected[]").click()
+        self.select_group_by_index(index)
         with allure.step("Edit a group"):
             driver.find_element(By.NAME, "edit").click()
             self.fild_group_form(group, True)
@@ -38,12 +40,20 @@ class GroupHelper:
             driver.find_element(By.NAME, "update").click()
             self.return_to_groups_page()
             self.group_cache = None
-
+    def select_first_group(self):
+        driver = self.app.driver
+        with allure.step("Select a group"):
+            driver.find_element(By.NAME, "selected[]").click()
+    def select_group_by_index(self,index):
+        driver = self.app.driver
+        with allure.step("Select a group by index"):
+            driver.find_elements(By.NAME, "selected[]")[index].click()
     def delete_first_group(self):
+        self.delete_group_by_index(0)
+    def delete_group_by_index(self, index):
         driver = self.app.driver
         self.open_groups_page()
-        with allure.step("Select a group"):
-            driver.find_element(By.NAME,"selected[]").click()
+        self.select_group_by_index(index)
         with allure.step("Delete a group"):
             driver.find_element(By.NAME,"delete").click()
         self.return_to_groups_page()

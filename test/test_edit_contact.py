@@ -1,6 +1,7 @@
 import allure
 import pytest
 from model.contact import Contact
+from random import randrange
 
 
 data_test = [

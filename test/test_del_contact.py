@@ -1,5 +1,6 @@
 import allure
 from model.contact import Contact
+from random import randrange
 
 
 @allure.epic("Contact_delete")
