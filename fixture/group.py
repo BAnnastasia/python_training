@@ -24,6 +24,7 @@ class GroupHelper:
         with allure.step("Submit group creation"):
             driver.find_element(By.NAME, "submit").click()
             self.return_to_groups_page()
+            self.group_cache = None
 
     def edit_first_group(self, group):
         driver = self.app.driver
@@ -36,6 +37,7 @@ class GroupHelper:
         with allure.step("Update group"):
             driver.find_element(By.NAME, "update").click()
             self.return_to_groups_page()
+            self.group_cache = None
 
     def delete_first_group(self):
         driver = self.app.driver
@@ -45,6 +47,7 @@ class GroupHelper:
         with allure.step("Delete a group"):
             driver.find_element(By.NAME,"delete").click()
         self.return_to_groups_page()
+        self.group_cache = None
 
 
     def open_groups_page(self):
@@ -63,16 +66,19 @@ class GroupHelper:
         driver = self.app.driver
         self.open_groups_page()
         return len(driver.find_elements(By.NAME,"selected[]"))
-    def get_group_list(self):
-        driver = self.app.driver
-        self.open_groups_page()
-        groups = []
 
-        for element in driver.find_elements(By.CSS_SELECTOR,"span.group"):
-            name = element.text
-            id = element.find_element(By.NAME,"selected[]").get_attribute("value")
-            groups.append(Group(name=name, id=id))
-        return groups
+    group_cache=None
+    def get_group_list(self):
+        if self.group_cache is None:
+            driver = self.app.driver
+            self.open_groups_page()
+            self.group_cache = []
+
+            for element in driver.find_elements(By.CSS_SELECTOR,"span.group"):
+                name = element.text
+                id = element.find_element(By.NAME,"selected[]").get_attribute("value")
+                self.group_cache.append(Group(name=name, id=id))
+        return list(self.group_cache)
 
 
 
