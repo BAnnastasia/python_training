@@ -1,4 +1,10 @@
 from sys import maxsize
+
+
+def get_or_else(value, default_value):
+    return default_value if value is None else value
+
+
 class Contact:
 
     def __init__(self, firstname=None, lastname=None, address=None, mobile=None, email=None, byear=None, bmonth=None, bday=None, homepage=None,
@@ -43,19 +49,16 @@ class Contact:
 
 
     def __repr__(self):
-        return "Group ID:""%s" % (self.id) + " " + "firstname:""%s" % (self.firstname) + " " + "lastname:""%s" % (self.lastname)
+        return "Contact ID:""%s" % (self.id) + " " + "firstname:""%s" % (self.firstname) + " " + "lastname:""%s" % (self.lastname)
 
     def __eq__(self, other):
         return ((self.id is None or other.id is None or self.id == other.id)
-                and self.firstname == other.firstname
-                and self.lastname == other.lastname)
+                and get_or_else(self.firstname, '') == get_or_else(other.firstname, '')
+                and get_or_else(self.lastname, '') == get_or_else(other.lastname, ''))
 
     def id_or_max(self):
         if self.id:
             return int(self.id)
         else:
             return maxsize
-
-
-
 
