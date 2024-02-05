@@ -49,6 +49,7 @@ class ContactHelper:
         self.fild_contact_form(contact)
         with allure.step("Submit contact creation"):
             driver.find_element(By.XPATH, "(//input[@name=\'submit\'])[2]").click()
+            self.contact_cache = None
 
     def edit_first_contact(self,contact):
         driver = self.app.driver
@@ -60,6 +61,7 @@ class ContactHelper:
             self.fild_contact_form(contact, True)
         with allure.step("Update contact"):
             driver.find_element(By.NAME, "update").click()
+            self.contact_cache = None
 
     def count(self):
         driver = self.app.driver
@@ -73,17 +75,19 @@ class ContactHelper:
             driver.find_element(By.NAME, "selected[]").click()
         with allure.step("Delete a contact"):
             driver.find_element(By.XPATH,"//input[@value='Delete']").click()
+            self.contact_cache = None
 
-
+    contact_cache = None
     def get_contact_list(self):
         driver = self.app.driver
-        self.app.open_home_page()
-        contact = []
+        if self.contact_cache is None:
+            self.app.open_home_page()
+            self.contact_cache = []
 
-        for element in driver.find_elements(By.CSS_SELECTOR,"tr[name=entry]"):
+            for element in driver.find_elements(By.CSS_SELECTOR,"tr[name=entry]"):
 
-            id = element.find_elements(By.CSS_SELECTOR, "td")[0].find_element(By.TAG_NAME, "input").get_attribute("id")
-            lastname = element.find_elements(By.CSS_SELECTOR, "td")[1].text
-            firstname = element.find_elements(By.CSS_SELECTOR, "td")[2].text
-            contact.append(Contact(id=id, lastname=lastname, firstname=firstname))
-        return contact
+                id = element.find_elements(By.CSS_SELECTOR, "td")[0].find_element(By.TAG_NAME, "input").get_attribute("id")
+                lastname = element.find_elements(By.CSS_SELECTOR, "td")[1].text
+                firstname = element.find_elements(By.CSS_SELECTOR, "td")[2].text
+                self.contact_cache.append(Contact(id=id, lastname=lastname, firstname=firstname))
+        return list(self.contact_cache)
