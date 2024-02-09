@@ -48,7 +48,7 @@ class ContactHelper:
         self.open_new_contact_page()
         self.fild_contact_form(contact)
         with allure.step("Submit contact creation"):
-            driver.find_element(By.XPATH, "(//input[@name=\'submit\'])[2]").click()
+            driver.find_element(By.XPATH, "(//input[@name='submit'])[2]").click()
             self.contact_cache = None
 
     def edit_first_contact(self):
