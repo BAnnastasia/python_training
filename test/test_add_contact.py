@@ -6,10 +6,10 @@ from fixture.application import Application
 @allure.epic("Contact_create")
 class TestAddContact():
   data_test = [
-    ("Firstname111", "Lastname11", "Minsk Kalinina 18-304", "email@test.by", "+375440000000", "1994", "January","-","https://www.google.com/",
-     None, None, None, None, None, None,None, None, None, None, None, None, None, None, None, None,None, None,),
-    (None, '', None, None, None, None, None, None, None,
-     None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None,)
+    ("Firstname111", "Lastname11", "Minsk Kalinina 18-304", "+375440000000y", "email1@test.by", "1994", "January","-","https://www.google.com/",
+     None, None, None, None, None, None,"+453435home", "+666-6767work", None, "222email@test", "test33@email.by", None, None, None, None, None,None, None),
+    #(None, '', None, None, None, None, None, None, None,
+     #None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None,)
 
   ]
 

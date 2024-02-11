@@ -54,6 +54,43 @@ class ContactHelper:
     def edit_first_contact(self):
         self.edit_contact_by_index(0)
 
+    def open_contact_view_by_index(self, index):
+        driver = self.app.driver
+        self.app.open_home_page()
+        with allure.step(f"View contact {index}"):
+            driver.find_elements(By.XPATH, "//img[@alt='Details']")[index].click()
+
+    def open_contact_to_edit_by_index(self, index):
+        driver = self.app.driver
+        self.app.open_home_page()
+        with allure.step(f"Edit contact {index}"):
+            driver.find_elements(By.XPATH, "//img[@alt='Edit']")[index].click()
+
+    def get_contact_info_from_edit_page(self, index):
+        driver = self.app.driver
+        self.open_contact_to_edit_by_index(index)
+        id =  driver.find_element(By.NAME,"id").get_attribute("value")
+        firstname = driver.find_element(By.NAME,"firstname").get_attribute("value")
+        lastname = driver.find_element(By.NAME,"lastname").get_attribute("value")
+        address = driver.find_element(By.NAME,"address").get_attribute("value")
+
+        homephone = driver.find_element(By.NAME,"home").get_attribute("value")
+        mobilephone = driver.find_element(By.NAME, "mobile").get_attribute("value")
+        workphone = driver.find_element(By.NAME, "work").get_attribute("value")
+
+
+        email = driver.find_element(By.NAME, "email").get_attribute("value")
+        email2 = driver.find_element(By.NAME, "email2").get_attribute("value")
+        email3 = driver.find_element(By.NAME, "email3").get_attribute("value")
+
+        homepage = driver.find_element(By.NAME, "homepage").get_attribute("value")
+        return Contact (id=id, firstname=firstname, lastname=lastname, address=address, home=homephone,
+                        mobile=mobilephone, work=workphone, email=email, email2=email2, email3=email3,
+                        homepage=homepage)
+
+
+
+
     def edit_contact_by_index(self, index,contact):
         driver = self.app.driver
         self.app.open_home_page()
@@ -101,5 +138,9 @@ class ContactHelper:
                 id = element.find_elements(By.CSS_SELECTOR, "td")[0].find_element(By.TAG_NAME, "input").get_attribute("id")
                 lastname = element.find_elements(By.CSS_SELECTOR, "td")[1].text
                 firstname = element.find_elements(By.CSS_SELECTOR, "td")[2].text
-                self.contact_cache.append(Contact(id=id, lastname=lastname, firstname=firstname))
+                address = element.find_elements(By.CSS_SELECTOR, "td")[3].text
+                allemails = element.find_elements(By.CSS_SELECTOR, "td")[4].text
+                allphones = element.find_elements(By.CSS_SELECTOR, "td")[5].text
+
+                self.contact_cache.append(Contact(id=id, lastname=lastname, firstname=firstname,address=address,allemails=allemails,allphones=allphones))
         return list(self.contact_cache)

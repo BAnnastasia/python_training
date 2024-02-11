@@ -15,7 +15,7 @@ class Contact:
                  work=None, fax=None,
                  email2=None, email3=None,
                  aday=None, amonth=None, ayear=None,
-                 new_group=None, address2=None, phone2=None, notes=None, id=None, text=None
+                 new_group=None, address2=None, phone2=None, notes=None, id=None, text=None, allphones=None, allemails=None
                  ):
         self.firstname = firstname
         self.lastname = lastname
@@ -46,6 +46,8 @@ class Contact:
         self.phone2 = phone2
         self.notes = notes
         self.id = id
+        self.all_phones = allphones
+        self.all_emails = allemails
 
 
     def __repr__(self):
