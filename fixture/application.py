@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from fixture.session import SessionHelper
 from fixture.group import GroupHelper
 from fixture.contact import ContactHelper
+import random
+import string
 
 
 class Application:
@@ -48,3 +50,7 @@ class Application:
         driver.find_element(By.NAME, dropdown_name).click()
         dropdown = driver.find_element(By.NAME, dropdown_name)
         dropdown.find_element(By.XPATH, f"//option[. = '{value}']").click()
+
+    def randon_string(self, prefix, maxlen):
+        symbols = string.ascii_letters + string.digits + string.punctuation + " " * 4
+        return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])

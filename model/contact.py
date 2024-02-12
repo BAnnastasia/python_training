@@ -51,7 +51,8 @@ class Contact:
 
 
     def __repr__(self):
-        return "Contact ID:""%s" % (self.id) + " " + "firstname:""%s" % (self.firstname) + " " + "lastname:""%s" % (self.lastname)
+        return ("Contact ID:""%s" % (self.id) + " " + "firstname:""%s" % (self.firstname) +
+                " " + "lastname:""%s" % (self.lastname)+" " + "Hphone:""%s" % (self.home)+" " + "email:""%s" % (self.email))
 
     def __eq__(self, other):
         return ((self.id is None or other.id is None or self.id == other.id)

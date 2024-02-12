@@ -8,7 +8,7 @@ class Group:
         self.id = id
 
     def __repr__(self):
-        return "Group ID:""%s" %(self.id) +" "+ "name:""%s" %(self.name)
+        return "Group ID:""%s" %(self.id) +" "+ "name:""%s" %(self.name)+ " "+ "footer:""%s" %(self.footer) + " "+ "header:""%s" %(self.header)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and self.name == other.name
