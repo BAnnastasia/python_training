@@ -9,12 +9,22 @@ import string
 
 
 class Application:
-    def __init__(self):
-        self.driver = webdriver.Chrome()
+    def __init__(self, browser, base_url):
+        if browser == "chrome":
+            self.driver = webdriver.Chrome()
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox()
+        elif browser == "safari":
+            self.driver = webdriver.Safari()
+        elif browser == "ie":
+            self.driver = webdriver.Ie()
+        else:
+            raise ValueError("Unrecogmizer browser %s"%browser )
         self.vars = {}
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
+        self.base_url = base_url
 
     def is_valid(self):
         try:
@@ -31,7 +41,7 @@ class Application:
         driver = self.driver
         if not (driver.current_url.endswith("/index.php") and len(driver.find_elements(By.XPATH, "//input[@value='Send e-Mail']")) > 0):
             with allure.step("Open start page"):
-                self.driver.get("http://mac-minik.local/addressbook/index.php")
+                self.driver.get(self.base_url)
 
     @staticmethod
     def apply_value_str_by_name(driver, field_name, value, clear=False):
