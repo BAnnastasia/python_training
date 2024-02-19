@@ -2,7 +2,6 @@ import random
 import string
 from model.group import Group
 import os.path
-import json
 import getopt
 import sys
 import jsonpickle
