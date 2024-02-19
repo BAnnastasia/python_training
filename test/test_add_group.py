@@ -1,10 +1,7 @@
-
 import allure
 from model.group import Group
 
-
-
-
+@allure.epic("Group_create")
 @allure.description("This test successfully creates a group")
 def test_add_group(app, json_groups):
     group = json_groups
