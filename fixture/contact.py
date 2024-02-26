@@ -41,6 +41,8 @@ class ContactHelper:
             self.app.apply_value_str_by_name(driver, "address2", contact.address2, clear)
             self.app.apply_value_str_by_name(driver, "phone2", contact.phone2, clear)
             self.app.apply_value_str_by_name(driver, "notes", contact.notes, clear)
+            contact.all_emails=Contact.get_all_emails(contact.email, contact.email2, contact.email3)
+            contact.all_phones = Contact.get_all_phones(contact.home, contact.mobile, contact.work)
 
 
     def create(self, contact):
@@ -116,8 +118,22 @@ class ContactHelper:
         with allure.step("Select a contact by index"):
              driver.find_elements(By.NAME, "selected[]")[index].click()
 
+    def select_contact_by_id(self, id):
+        driver = self.app.driver
+        with allure.step("Select a contact by id"):
+             driver.find_element(By.ID, id).click()
+
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
+
+    def delete_contact_by_id(self, id):
+        driver = self.app.driver
+        self.app.open_home_page()
+        self.select_contact_by_id(id)
+        with allure.step("Delete a contact"):
+            driver.find_element(By.XPATH,"//input[@value='Delete']").click()
+            self.contact_cache = None
+    contact_cache = None
 
     def delete_contact_by_index(self, index):
         driver = self.app.driver

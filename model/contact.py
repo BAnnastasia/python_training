@@ -1,5 +1,5 @@
 from sys import maxsize
-
+import re
 
 def get_or_else(value, default_value):
     return default_value if value is None else value
@@ -52,7 +52,8 @@ class Contact:
 
     def __repr__(self):
         return ("Contact ID:""%s" % (self.id) + " " + "firstname:""%s" % (self.firstname) +
-                " " + "lastname:""%s" % (self.lastname)+" " + "Hphone:""%s" % (self.home)+" " + "email:""%s" % (self.email))
+                " " + "lastname:""%s" % (self.lastname)+" " + "allemail:""%s" % (self.all_emails)+" " + "allphone:""%s" % (self.all_phones))
+
 
     def __eq__(self, other):
         return ((self.id is None or other.id is None or self.id == other.id)
@@ -65,3 +66,29 @@ class Contact:
         else:
             return maxsize
 
+    @staticmethod
+    def get_all_emails(email,email2,email3):
+        all_emails="\n".join(
+        filter(lambda x: x != "",
+               map(lambda x: Contact.clean_email(x),
+                   filter(lambda x: x is not None,
+                          [email, email2, email3]))))
+        return all_emails
+
+    @staticmethod
+    def get_all_phones(home, mobile, work):
+        all_phones = "\n".join(
+        filter(lambda x: x != "",
+               map(lambda x: Contact.clean_phone(x),
+                   filter(lambda x: x is not None,
+                          [home, mobile,
+                           work]))))
+        return all_phones
+
+    @staticmethod
+    def clean_phone(s):
+        return re.sub("[^a-zA-Z0-9+]", "", s)
+
+    @staticmethod
+    def clean_email(s):
+        return re.sub(r"\s", "", s)
