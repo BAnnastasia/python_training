@@ -91,7 +91,15 @@ class ContactHelper:
                         homepage=homepage)
 
 
-
+    def edit_contact_by_id(self, id, contact):
+        driver = self.app.driver
+        self.app.open_home_page()
+        with allure.step(f"Edit contact {id}"):
+            driver.find_element(By.XPATH,  '//a[@href="edit.php?id=%s"]' % id).click()
+            self.fild_contact_form(contact, True)
+        with allure.step("Update contact"):
+            driver.find_element(By.NAME, "update").click()
+            self.contact_cache = None
 
     def edit_contact_by_index(self, index,contact):
         driver = self.app.driver

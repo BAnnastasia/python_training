@@ -1,7 +1,7 @@
 import allure
 import pytest
 from model.contact import Contact
-from random import randrange
+import random
 
 
 data_test = [
@@ -15,17 +15,17 @@ data_test = [
 @allure.epic("Contact_edit")
 @allure.description("This test successfully edit a contact")
 @pytest.mark.parametrize('firstname, lastname, address, mobile, email, byear, bmonth, bday, homepage, middlename, nickname, photo, delete, company, title, home, work, fax, email2, email3, aday, amonth, ayear,new_group, address2, phone2, notes', data_test)
-def test_edit_contact(app,firstname, lastname, address, mobile, email, byear, bmonth, bday, homepage,
+def test_edit_contact(app, db, check_ui, firstname, lastname, address, mobile, email, byear, bmonth, bday, homepage,
                  middlename, nickname, photo, delete,
                  company, title,
                  home, work, fax,
                  email2, email3,
                  aday, amonth, ayear,
                  new_group, address2, phone2, notes):
-    if app.contact.count() == 0:
+    if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="Test_delete"))
-    old_contact = app.contact.get_contact_list()
-    index = randrange(len(old_contact))
+    old_contact = db.get_contact_list()
+    contact_random = random.choice(old_contact)
     contact = Contact(firstname, lastname, address, mobile, email, byear, bmonth, bday, homepage,
                  middlename, nickname, photo, delete,
                  company, title,
@@ -33,10 +33,16 @@ def test_edit_contact(app,firstname, lastname, address, mobile, email, byear, bm
                  email2, email3,
                  aday, amonth, ayear,
                  new_group, address2, phone2, notes)
-    contact.id = old_contact[index].id
-    app.contact.edit_contact_by_index(index, contact)
-    assert len(old_contact) == app.contact.count()
+    contact.id = contact_random.id
+
+    app.contact.edit_contact_by_id(contact_random.id, contact)
+
+    new_groups = db.get_contact_list()
+    assert len(old_contact) == len(new_groups)
     new_contact = app.contact.get_contact_list()
-    old_contact[index] = contact
+    edited_index = next(iter([i for i in range(len(old_contact)) if old_contact[i].id == contact_random.id]))
+    old_contact[edited_index] = contact
     assert sorted(old_contact, key=Contact.id_or_max) == sorted(new_contact, key=Contact.id_or_max)
+    if check_ui:
+        assert sorted(new_contact, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
 
