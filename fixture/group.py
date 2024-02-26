@@ -28,7 +28,17 @@ class GroupHelper:
 
     def edit_first_group(self):
         self.edit_group_by_index(0)
-
+    def edit_group_by_id(self, id, group):
+        driver = self.app.driver
+        self.open_groups_page()
+        self.select_group_by_id(id)
+        with allure.step("Edit a group"):
+            driver.find_element(By.NAME, "edit").click()
+            self.fild_group_form(group, True)
+        with allure.step("Update group"):
+            driver.find_element(By.NAME, "update").click()
+            self.return_to_groups_page()
+            self.group_cache = None
     def edit_group_by_index(self, index, group):
         driver = self.app.driver
         self.open_groups_page()
