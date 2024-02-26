@@ -44,12 +44,26 @@ class GroupHelper:
         index = 0
         with allure.step(f"Select a group by index {index}"):
             self.select_group_by_index(index)
+
     def select_group_by_index(self,index):
         driver = self.app.driver
         with allure.step(f"Select a group by index {index}"):
             driver.find_elements(By.NAME, "selected[]")[index].click()
+    def select_group_by_id(self,id):
+        driver = self.app.driver
+        with allure.step(f"Select a group by index {id}"):
+            driver.find_element(By.CSS_SELECTOR, "input[value='%s']" % id).click()
     def delete_first_group(self):
         self.delete_group_by_index(0)
+
+    def delete_group_by_id(self, id):
+        driver = self.app.driver
+        self.open_groups_page()
+        self.select_group_by_id(id)
+        with allure.step("Delete a group"):
+            driver.find_element(By.NAME,"delete").click()
+        self.return_to_groups_page()
+        self.group_cache = None
     def delete_group_by_index(self, index):
         driver = self.app.driver
         self.open_groups_page()
