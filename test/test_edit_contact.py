@@ -5,9 +5,9 @@ import random
 
 
 data_test = [
-    ("Firstname_Edit", "Lastname_edit", "EMinsk Kalinina 18-304", "Eemail@test.by", "+375990000000", "1990", "May", "13",
+    ("Firstname_Edit", "Lastname_edit", "EMinsk Kalinina 18-304","+375990000000","Eemail@test.by",  "1990", "May", "13",
      "https://www.google.com/",
-     None, None, None, None, None, None, "Title", None, None, None, None, None, None, None, None, None, None, None
+     None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
      ),
 
   ]
