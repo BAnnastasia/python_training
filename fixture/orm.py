@@ -28,7 +28,7 @@ class ORMFixture:
         groups = Set(lambda: ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contacts",lazy=True)
 
     def __init__(self,host,name,user, password):
-        self.db.bind('mysql', host=host, database=name, user=user, password=password)
+        self.db.bind(provider='mysql', host=host, user=user, passwd=password, db=name)
         self.db.generate_mapping()
         sql_debug(True)
 
