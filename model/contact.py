@@ -60,6 +60,11 @@ class Contact:
                 and get_or_else(self.firstname, '') == get_or_else(other.firstname, '')
                 and get_or_else(self.lastname, '') == get_or_else(other.lastname, ''))
 
+    def __contains__(self,other):
+        return (self.id == other.id)
+
+
+
     def id_or_max(self):
         if self.id:
             return int(self.id)

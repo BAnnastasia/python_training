@@ -71,7 +71,7 @@ class ContactHelper:
     def get_contact_info_from_edit_page(self, index):
         driver = self.app.driver
         self.open_contact_to_edit_by_index(index)
-        id =  driver.find_element(By.NAME,"id").get_attribute("value")
+        id = driver.find_element(By.NAME,"id").get_attribute("value")
         firstname = driver.find_element(By.NAME,"firstname").get_attribute("value")
         lastname = driver.find_element(By.NAME,"lastname").get_attribute("value")
         address = driver.find_element(By.NAME,"address").get_attribute("value")
@@ -101,7 +101,7 @@ class ContactHelper:
             driver.find_element(By.NAME, "update").click()
             self.contact_cache = None
 
-    def edit_contact_by_index(self, index,contact):
+    def edit_contact_by_index(self, index, contact):
         driver = self.app.driver
         self.app.open_home_page()
         with allure.step(f"Edit contact {index}"):
@@ -143,6 +143,27 @@ class ContactHelper:
             self.contact_cache = None
     contact_cache = None
 
+    def add_to_group_by_id(self, contact_id, group_id):
+        driver = self.app.driver
+        self.app.open_home_page()
+        self.select_contact_by_id(contact_id)
+        #self.app.apply_value_str_by_name(driver, "to_group", group_name)
+        dropdown = driver.find_element(By.NAME, "to_group")
+        dropdown.click()
+        dropdown.find_element(By.CSS_SELECTOR, "option[value='%s']" % group_id).click()
+        driver.find_element(By.NAME, "add").click()
+        self.app.open_home_page()
+
+    def delete_contact_from_group_by_id(self, contact_id, group_id):
+        driver = self.app.driver
+        self.app.open_home_page()
+        dropdown = driver.find_element(By.NAME, "group")
+        dropdown.click()
+        dropdown.find_element(By.CSS_SELECTOR, "option[value='%s']" % group_id).click()
+        self.select_contact_by_id(contact_id)
+        driver.find_element(By.NAME, "remove").click()
+
+
     def delete_contact_by_index(self, index):
         driver = self.app.driver
         self.app.open_home_page()
@@ -168,3 +189,4 @@ class ContactHelper:
 
                 self.contact_cache.append(Contact(id=id, lastname=lastname, firstname=firstname,address=address,allemails=allemails,allphones=allphones))
         return list(self.contact_cache)
+
