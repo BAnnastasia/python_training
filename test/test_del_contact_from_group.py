@@ -10,7 +10,7 @@ def test_del_from_group(app, orm):
     if (len(orm.get_group_list()) == 0):
         app.group.create(Group(name="test_group"))
     contact_new = sorted(orm.get_contact_list(), key=Contact.id_or_max)[-1]
-    list_group= orm.get_group_list()
+    list_group = orm.get_group_list()
     group_random = random.choice(list_group)
     app.contact.add_to_group_by_id(contact_new.id, group_random.id)
     list_contact = orm.get_contacts_in_group(group_random)

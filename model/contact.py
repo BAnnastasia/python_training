@@ -51,14 +51,19 @@ class Contact:
 
 
     def __repr__(self):
-        return ("Contact ID:""%s" % (self.id) + " " + "firstname:""%s" % (self.firstname) +
-                " " + "lastname:""%s" % (self.lastname)+" " + "allemail:""%s" % (self.all_emails)+" " + "allphone:""%s" % (self.all_phones))
+        return ("Contact ID:""%s" % (self.id) + " " +
+                "firstname:""%s" % (self.firstname) +" " +
+                "lastname:""%s" % (self.lastname)+" " +
+                "address:""%s" % (self.address) + " " +
+                "allemail:""%s" % (self.all_emails) + " " +
+                "allphone:""%s" % (self.all_phones))
 
 
     def __eq__(self, other):
-        return ((self.id is None or other.id is None or self.id == other.id)
+       return ((self.id is None or other.id is None or self.id == other.id)
                 and get_or_else(self.firstname, '') == get_or_else(other.firstname, '')
-                and get_or_else(self.lastname, '') == get_or_else(other.lastname, ''))
+                and get_or_else(self.lastname, '') == get_or_else(other.lastname, '')
+                and get_or_else(self.address, '') == get_or_else(other.address, ''))
 
     def __contains__(self,other):
         return (self.id == other.id)

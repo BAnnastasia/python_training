@@ -41,8 +41,8 @@ class ContactHelper:
             self.app.apply_value_str_by_name(driver, "address2", contact.address2, clear)
             self.app.apply_value_str_by_name(driver, "phone2", contact.phone2, clear)
             self.app.apply_value_str_by_name(driver, "notes", contact.notes, clear)
-            contact.all_emails=Contact.get_all_emails(contact.email, contact.email2, contact.email3)
-            contact.all_phones = Contact.get_all_phones(contact.home, contact.mobile, contact.work)
+            contact.allemails=Contact.get_all_emails(contact.email, contact.email2, contact.email3)
+            contact.allphones = Contact.get_all_phones(contact.home, contact.mobile, contact.work)
 
 
     def create(self, contact):
@@ -162,6 +162,17 @@ class ContactHelper:
         dropdown.find_element(By.CSS_SELECTOR, "option[value='%s']" % group_id).click()
         self.select_contact_by_id(contact_id)
         driver.find_element(By.NAME, "remove").click()
+
+    def compare_contacts(self, contact1, contact2):
+         for item in range(len(contact1)):
+            if (contact1[item].id == contact2[item].id
+                    and contact1[item].firstname == contact2[item].firstname
+                    and contact1[item].lastname == contact2[item].lastname
+                    and contact1[item].address == contact2[item].address
+                    and contact1[item].all_emails == contact2[item].all_emails
+                    and contact1[item].all_phones == contact2[item].all_phones):
+                return True
+         return False
 
 
     def delete_contact_by_index(self, index):
