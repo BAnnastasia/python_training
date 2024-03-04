@@ -55,6 +55,7 @@ class Contact:
                 "firstname:""%s" % (self.firstname) +" " +
                 "lastname:""%s" % (self.lastname)+" " +
                 "address:""%s" % (self.address) + " " +
+                "homepage:""%s" % (self.homepage) + " " +
                 "allemail:""%s" % (self.all_emails) + " " +
                 "allphone:""%s" % (self.all_phones))
 
@@ -75,6 +76,12 @@ class Contact:
             return int(self.id)
         else:
             return maxsize
+
+    @staticmethod
+    def get_url(str_homepage):
+        if str_homepage != '':
+            str_homepage = "http://" + str_homepage
+        return str_homepage
 
     @staticmethod
     def get_all_emails(email,email2,email3):

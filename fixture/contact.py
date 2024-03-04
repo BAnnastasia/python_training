@@ -170,6 +170,7 @@ class ContactHelper:
                     and contact1[item].lastname == contact2[item].lastname
                     and contact1[item].address == contact2[item].address
                     and contact1[item].all_emails == contact2[item].all_emails
+                    and contact1[item].homepage == contact2[item].homepage
                     and contact1[item].all_phones == contact2[item].all_phones):
                 return True
          return False
@@ -197,7 +198,7 @@ class ContactHelper:
                 address = element.find_elements(By.CSS_SELECTOR, "td")[3].text
                 allemails = element.find_elements(By.CSS_SELECTOR, "td")[4].text
                 allphones = element.find_elements(By.CSS_SELECTOR, "td")[5].text
-
-                self.contact_cache.append(Contact(id=id, lastname=lastname, firstname=firstname,address=address,allemails=allemails,allphones=allphones))
+                homepage = element.find_elements(By.CSS_SELECTOR,"td")[9].accessible_name
+                self.contact_cache.append(Contact(id=id, lastname=lastname, firstname=firstname,address=address,allemails=allemails,allphones=allphones,homepage=homepage))
         return list(self.contact_cache)
 

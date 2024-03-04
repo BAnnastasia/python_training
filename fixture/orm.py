@@ -22,6 +22,7 @@ class ORMFixture:
         home = Optional(str, column='home')
         mobile = Optional(str, column='mobile')
         work = Optional(str, column='work')
+        homepage = Optional(str, column='homepage')
         email = Optional(str, column='email')
         email2 = Optional(str, column='email2')
         email3 = Optional(str, column='email3')
@@ -42,6 +43,7 @@ class ORMFixture:
             return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname,
                             address=contact.address, home=contact.home, mobile=contact.mobile,
                             work=contact.work, email=contact.email, email2=contact.email2, email3=contact.email3,
+                            homepage=Contact.get_url(contact.homepage),
                             allemails=Contact.get_all_emails(contact.email, contact.email2, contact.email3),
                             allphones=Contact.get_all_phones(contact.home, contact.mobile, contact.work))
         return list(map(convert,contacts))
